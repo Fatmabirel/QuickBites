@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
-using WebUI.Dtos.CategoryDtos;
+using WebUI.Dtos.FeatureDtos;
 
 namespace WebUI.Controllers
 {
-    public class CategoryController : Controller
+    public class FeatureController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public CategoryController(IHttpClientFactory httpClientFactory)
+        public FeatureController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -16,65 +16,68 @@ namespace WebUI.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7058/api/Categories");
+            var responseMessage = await client.GetAsync("https://localhost:7058/api/Features");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpGet]
-        public IActionResult CreateCategory()
+        public IActionResult CreateFeature()
         {
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
+        public async Task<IActionResult> CreateFeature(CreateFeatureDto createFeatureDto)
         {
-            createCategoryDto.Status = true;
             var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createCategoryDto);
+            var jsonData = JsonConvert.SerializeObject(createFeatureDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7058/api/Categories", stringContent);
+            var responseMessage = await client.PostAsync("https://localhost:7058/api/Features", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
             return View();
         }
-        public async Task<IActionResult> DeleteCategory(int id)
+
+        public async Task<IActionResult> DeleteFeature(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7058/api/Categories/{id}");
+            var responseMessage = await client.DeleteAsync($"https://localhost:7058/api/Features/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
             return View();
         }
+
         [HttpGet]
-        public async Task<IActionResult> UpdateCategory(int id)
+        public async Task<IActionResult> UpdateFeature(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7058/api/Categories/{id}");
+            var responseMessage = await client.GetAsync($"https://localhost:7058/api/Features/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateCategoryDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateFeatureDto>(jsonData);
                 return View(values);
             }
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> UpdateFeature(UpdateFeatureDto updateFeatureDto)
         {
             var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateCategoryDto);
+            var jsonData = JsonConvert.SerializeObject(updateFeatureDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7058/api/Categories/", stringContent);
+            var responseMessage = await client.PutAsync("https://localhost:7058/api/Features/", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
