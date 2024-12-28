@@ -45,12 +45,31 @@ namespace WebAPI.Controllers
             var value = _categoryService.GetById(id);
             return Ok(value);
         }
+
         [HttpPut]
         public IActionResult UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
             var value = _mapper.Map<Category>(updateCategoryDto);
             _categoryService.Update(value);
             return Ok("Kategori Güncellendi");
+        }
+
+        [HttpGet("CategoryCount")]
+        public IActionResult CategoryCount()
+        {
+            return Ok(_categoryService.CategoryCount());
+        }
+
+        [HttpGet("ActiveCategoryCount")]
+        public IActionResult ActiveCategoryCount()
+        {
+            return Ok(_categoryService.ActiveCategoryCount());
+        }
+
+        [HttpGet("PassiveCategoryCount")]
+        public IActionResult PassiveCategoryCount()
+        {
+            return Ok(_categoryService.PassiveCategoryCount());
         }
     }
 }

@@ -54,12 +54,55 @@ namespace WebAPI.Controllers
             var value = _productService.GetById(id);
             return Ok(_mapper.Map<GetProductDto>(value));
         }
+
         [HttpPut]
         public IActionResult UpdateProduct(UpdateProductDto updateProductDto)
         {
             var value = _mapper.Map<Product>(updateProductDto);
             _productService.Update(value);
             return Ok("Ürün Bilgisi Güncellendi");
-        }       
+        }
+
+        [HttpGet("ProductCount")]
+        public IActionResult ProductCount()
+        {
+            return Ok(_productService.ProductCount());
+        }
+
+        [HttpGet("ProductCountByDrink")]
+        public IActionResult ProductCountByDrink()
+        {
+            return Ok(_productService.ProductCountByCategoryNameDrink());
+        }
+
+        [HttpGet("ProductCountByHamburger")]
+        public IActionResult ProductCountByHamburger()
+        {
+            return Ok(_productService.ProductCountByCategoryNameHamburger());
+        }
+
+        [HttpGet("AverageProductPrice")]
+        public IActionResult AverageProductPrice()
+        {
+            return Ok(_productService.AverageProductPrice());
+        }
+
+        [HttpGet("MinimumProductPriceName")]
+        public IActionResult MinimumProductPriceName()
+        {
+            return Ok(_productService.MinimumProductPriceName());
+        }
+
+        [HttpGet("MaximumProductPriceName")]
+        public IActionResult MaximumProductPriceName()
+        {
+            return Ok(_productService.MaximumProductPriceName());
+        }
+
+        [HttpGet("AveragePriceByHamburger")]
+        public IActionResult AveragePriceByHamburger()
+        {
+            return Ok(_productService.AveragePriceByHamburger());
+        }
     }
 }
