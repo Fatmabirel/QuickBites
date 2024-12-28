@@ -35,6 +35,14 @@ namespace DataAccessLayer.EntityFramework
             }
         }
 
+        public decimal TodayTotalPrice()
+        {
+            using (var context = new QuickBitesContext())
+            {
+                return context.Orders.Where(o => o.OrderDate.Date == DateTime.Today).Sum(o=>o.TotalPrice);
+            }
+        }
+
         public int TotalOrderCount()
         {
             using (var context = new QuickBitesContext())

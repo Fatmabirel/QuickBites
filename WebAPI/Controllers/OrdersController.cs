@@ -35,5 +35,11 @@ namespace WebAPI.Controllers
         {
             return Ok(_orderService.LastOrderPrice());
         }
+
+        [HttpGet("TodayTotalPrice")]
+        public IActionResult TodayTotalPrice()
+        {
+            return Ok(_orderService.TodayTotalPrice());
+        }
     }
 }

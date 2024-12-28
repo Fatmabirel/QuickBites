@@ -52,6 +52,11 @@ namespace BusinessLayer.Concrete
             return _orderDal.PassiveOrderCount();
         }
 
+        public decimal TodayTotalPrice()
+        {
+            return _orderDal.TodayTotalPrice();
+        }
+
         public int TotalOrderCount()
         {
             return _orderDal.TotalOrderCount();

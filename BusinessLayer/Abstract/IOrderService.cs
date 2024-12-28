@@ -8,5 +8,6 @@ namespace BusinessLayer.Abstract
         int ActiveOrderCount();
         int PassiveOrderCount();
         decimal LastOrderPrice();
+        decimal TodayTotalPrice();
     }
 }
