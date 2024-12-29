@@ -71,5 +71,17 @@ namespace WebAPI.Hubs
             await Clients.All.SendAsync("ReceiveRestaurantTableCount", restaurantTableCount);
 
         }
+
+        public async Task SendProgress()
+        {
+            var moneyCaseAmount = _moneyCaseService.TotalMoneyCaseAmount();
+            await Clients.All.SendAsync("ReceiveMoneyCaseAmount", moneyCaseAmount.ToString("0.00") + "₺");
+
+            var activeOrderCount = _orderService.ActiveOrderCount();
+            await Clients.All.SendAsync("ReceiveActiveOrderCount", activeOrderCount);
+
+            var restaurantTableCount = _restaurantTableService.TotalRestaurantTableCount();
+            await Clients.All.SendAsync("ReceiveRestaurantTableCount", restaurantTableCount);
+        }
     }
 }
