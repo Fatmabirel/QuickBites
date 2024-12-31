@@ -133,6 +133,7 @@
             var productName = name;
             $.ajax({
                 type: 'post',
+                url: '/Menu/AddBasket/' + id,
                 data: { item: productId },
                 contentType: 'json',
                 success: function() {

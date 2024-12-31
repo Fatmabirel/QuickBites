@@ -4,6 +4,7 @@ using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using WebAPI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,7 +63,13 @@ builder.Services.AddScoped<IRestaurantTableDal, EfRestaurantTableDal>();
 builder.Services.AddScoped<ISliderService, SliderManager>();
 builder.Services.AddScoped<ISliderDal, EfSliderDal>();
 
+builder.Services.AddScoped<IBasketService, BasketManager>();
+builder.Services.AddScoped<IBasketDal, EfBasketDal>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddControllers();
 
