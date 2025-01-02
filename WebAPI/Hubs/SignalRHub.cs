@@ -23,6 +23,7 @@ namespace WebAPI.Hubs
             _bookingService = bookingService;
             _notificationService = notificationService;
         }
+        public static int clientCount { get; set; }
         public async Task SendStatistic()
         {
             var categoryCount = _categoryService.CategoryCount();
@@ -73,7 +74,6 @@ namespace WebAPI.Hubs
             var restaurantTableCount = _restaurantTableService.TotalRestaurantTableCount();
             await Clients.All.SendAsync("ReceiveRestaurantTableCount", restaurantTableCount);
         }
-
         public async Task SendProgress()
         {
             var moneyCaseAmount = _moneyCaseService.TotalMoneyCaseAmount();
@@ -106,6 +106,18 @@ namespace WebAPI.Hubs
         public async Task SendMessage(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+        public override async Task OnConnectedAsync() // Client sayısını almak için kullanılır.
+        {
+            clientCount++; //client sayısı artırılır
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+            await base.OnConnectedAsync();
+        }
+        public override async Task OnDisconnectedAsync(Exception? exception) // Client sayısını almak için kullanılır.
+        {
+            clientCount--; //client sayısı azaltılır
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+            await base.OnDisconnectedAsync(exception);
         }
     }
 }
