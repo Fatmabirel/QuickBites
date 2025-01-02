@@ -1,14 +1,16 @@
 ﻿using EntityLayer.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Concrete
 {
-    public class QuickBitesContext : DbContext
+    public class QuickBitesContext : IdentityDbContext<AppUser, AppRole, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-Q270QVE\\SQLEXPRESS; Initial Catalog=QuickBites; Integrated Security=true");
         }
+
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<Booking> Bookings { get; set; }

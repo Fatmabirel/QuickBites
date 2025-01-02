@@ -1,5 +1,10 @@
+using DataAccessLayer.Concrete;
+using EntityLayer.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<QuickBitesContext>();
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<QuickBitesContext>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllersWithViews();
 
