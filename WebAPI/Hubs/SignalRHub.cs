@@ -88,9 +88,8 @@ namespace WebAPI.Hubs
         public async Task GetBookingList()
         {
             var allBookings = _bookingService.GetAll();
-            await Clients.All.SendAsync("ReceiveBookingList", allBookings);           
+            await Clients.All.SendAsync("ReceiveBookingList", allBookings);
         }
-
         public async Task SendNotification()
         {
             var falseNotifications = _notificationService.NotificationCountByStatusFalse();
@@ -99,11 +98,14 @@ namespace WebAPI.Hubs
             var falseNotificationsList = _notificationService.GetAllNotificationsByStatusFalse();
             await Clients.All.SendAsync("ReceiveGetAllNotificationsByStatusFalse", falseNotificationsList);
         }
-
         public async Task GetRestaurantTableStatus()
         {
             var restaurantTables = _restaurantTableService.GetAll();
             await Clients.All.SendAsync("ReceiveRestaurantTableStatus", restaurantTables);
+        }
+        public async Task SendMessage(string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
     }
 }
