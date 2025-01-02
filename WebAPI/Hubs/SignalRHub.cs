@@ -23,7 +23,6 @@ namespace WebAPI.Hubs
             _bookingService = bookingService;
             _notificationService = notificationService;
         }
-
         public async Task SendStatistic()
         {
             var categoryCount = _categoryService.CategoryCount();
@@ -73,7 +72,6 @@ namespace WebAPI.Hubs
 
             var restaurantTableCount = _restaurantTableService.TotalRestaurantTableCount();
             await Clients.All.SendAsync("ReceiveRestaurantTableCount", restaurantTableCount);
-
         }
 
         public async Task SendProgress()
@@ -87,7 +85,6 @@ namespace WebAPI.Hubs
             var restaurantTableCount = _restaurantTableService.TotalRestaurantTableCount();
             await Clients.All.SendAsync("ReceiveRestaurantTableCount", restaurantTableCount);
         }
-
         public async Task GetBookingList()
         {
             var allBookings = _bookingService.GetAll();
@@ -101,6 +98,12 @@ namespace WebAPI.Hubs
 
             var falseNotificationsList = _notificationService.GetAllNotificationsByStatusFalse();
             await Clients.All.SendAsync("ReceiveGetAllNotificationsByStatusFalse", falseNotificationsList);
+        }
+
+        public async Task GetRestaurantTableStatus()
+        {
+            var restaurantTables = _restaurantTableService.GetAll();
+            await Clients.All.SendAsync("ReceiveRestaurantTableStatus", restaurantTables);
         }
     }
 }

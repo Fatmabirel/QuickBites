@@ -13,6 +13,7 @@ namespace BusinessLayer.Concrete
         }
         public void Add(RestaurantTable entity)
         {
+            entity.Status = true;
             _restaurantTableDal.Add(entity);
         }
 
@@ -38,6 +39,7 @@ namespace BusinessLayer.Concrete
 
         public void Update(RestaurantTable entity)
         {
+            entity.Status = true;
             _restaurantTableDal.Update(entity);
         }
     }
