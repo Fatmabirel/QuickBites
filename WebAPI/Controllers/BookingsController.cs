@@ -53,6 +53,20 @@ namespace WebAPI.Controllers
         {
             var value = _bookingService.GetById(id);
             return Ok(_mapper.Map<GetBookingDto>(value));
-        } 
+        }
+
+        [HttpGet("BookingStatusApproved/{id}")]
+        public IActionResult BookingStatusApproved(int id)
+        {
+            _bookingService.BookingStatusApproved(id);
+            return Ok("Rezervasyon Onaylandı!");
+        }
+
+        [HttpGet("BookingStatusCancelled/{id}")]
+        public IActionResult BookingStatusCancelled(int id)
+        {
+            _bookingService.BookingStatusCancelled(id);
+            return Ok("Rezervasyon İptal Edildi!");
+        }
     }
 }

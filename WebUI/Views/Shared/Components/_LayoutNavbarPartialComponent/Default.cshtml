@@ -25,7 +25,6 @@
             });
 
             connection.on("ReceiveGetAllNotificationsByStatusFalse", (value) => {
-                console.log(value);
                 $("#notilist").empty();
                 for (var i = 0; i < value.length;i++){
                     $("#notilist").append(`<a href="#">
@@ -97,14 +96,14 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="~/admin-template/assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span>Hizrian</span></span> </a>
+                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="~/admin-template/assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span>Fatma Birel</span></span> </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
                             <div class="user-box">
                                 <div class="u-img"><img src="~/admin-template/assets/img/profile.jpg" alt="user"></div>
                                 <div class="u-text">
                                     <h4>Fatma Birel</h4>
-                                    <p class="text-muted">info@quickbites.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Menüyü Gör</a>
+                                    <p class="text-muted">info@quickbites.com</p><a href="/Menu/Index/" class="btn btn-rounded btn-danger btn-sm">Menüyü Gör</a>
                                 </div>
                             </div>
                         </li>

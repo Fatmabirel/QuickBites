@@ -36,9 +36,6 @@ builder.Services.AddScoped<IContactDal, EfContactDal>();
 builder.Services.AddScoped<IDiscountService, DiscountManager>();
 builder.Services.AddScoped<IDiscountDal, EfDiscountDal>();
 
-builder.Services.AddScoped<IFeatureService, FeatureManager>();
-builder.Services.AddScoped<IFeatureDal, EfFeatureDal>();
-
 builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<IProductDal, EfProductDal>();
 
@@ -68,6 +65,9 @@ builder.Services.AddScoped<IBasketDal, EfBasketDal>();
 
 builder.Services.AddScoped<INotificationService, NotificationManager>();
 builder.Services.AddScoped<INotificationDal, EfNotificationDal>();
+
+builder.Services.AddScoped<IMessageService, MessageManager>();
+builder.Services.AddScoped<IMessageDal, EfMessageDal>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

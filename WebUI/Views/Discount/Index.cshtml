@@ -19,7 +19,7 @@
                         <div class="card-sub">
                             Günün İndirimli Ürünleri Aşağıda Yer Almaktadır. Tema Bütünlüğü İçin <strong>2 Adet</strong> İndirimli Ürün Seçiniz.
                         </div>
-                        <table class="table mt-3">
+                        <table class="table mt-3 text-center">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -28,6 +28,7 @@
                                     <th scope="col">Durum</th>
                                     <th scope="col">Sil</th>
                                     <th scope="col">Güncelle</th>
+                                    <th scope="col">Aktif/Pasif</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,9 +39,21 @@
                                         <th>@count</th>
                                         <td>@item.Title</td>
                                         <td>@item.Amount</td>
-                                        <td>@item.Status</td>
+                                        @if (@item.Status == true)
+                                        {
+                                            <td>Aktif</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Pasif</td>
+                                        }
                                         <td><a href="/Discount/DeleteDiscount/@item.Id" class="btn btn-outline-danger">Sil</a></td>
                                         <td><a href="/Discount/UpdateDiscount/@item.Id" class="btn btn-outline-success">Güncelle</a></td>
+                                        @if(@item.Status == true){
+                                            <td><a href="/Discount/ChangeStatusToFalse/@item.Id" class="btn btn-outline-dark">Pasif Yap</a></td>
+                                        }else{
+                                            <td><a href="/Discount/ChangeStatusToTrue/@item.Id" class="btn btn-outline-primary">Aktif Yap</a></td>
+                                        }
                                     </tr>
                                 }
                             </tbody>

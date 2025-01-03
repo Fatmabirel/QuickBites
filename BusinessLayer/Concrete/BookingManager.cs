@@ -14,7 +14,18 @@ namespace BusinessLayer.Concrete
 
         public void Add(Booking entity)
         {
+            entity.Description = "Rezervasyon Onaylandı";
             _bookingDal.Add(entity);
+        }
+
+        public void BookingStatusApproved(int id)
+        {
+            _bookingDal.BookingStatusApproved(id);
+        }
+
+        public void BookingStatusCancelled(int id)
+        {
+            _bookingDal.BookingStatusCancelled(id);
         }
 
         public void Delete(Booking entity)
@@ -34,6 +45,7 @@ namespace BusinessLayer.Concrete
 
         public void Update(Booking entity)
         {
+            entity.Description = "Rezervasyon Onaylandı";
             _bookingDal.Update(entity);
         }
     }

@@ -1,13 +1,25 @@
 using DataAccessLayer.Concrete;
 using EntityLayer.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
 builder.Services.AddDbContext<QuickBitesContext>();
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<QuickBitesContext>();
 builder.Services.AddHttpClient();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opt =>
+{
+    opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+});
 
+builder.Services.ConfigureApplicationCookie(opts =>
+{
+    opts.LoginPath = "/Logins/Index";
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,7 +34,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -24,6 +24,7 @@ namespace WebAPI.Controllers
             var value = _mapper.Map<List<ResultDiscountDto>>(_discountService.GetAll());
             return Ok(value);
         }
+
         [HttpPost]
         public IActionResult CreateDiscount(CreateDiscountDto createDiscountDto)
         {
@@ -31,6 +32,7 @@ namespace WebAPI.Controllers
             _discountService.Add(value);
             return Ok("İndirim Bilgisi Eklendi");
         }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteDiscount(int id)
         {
@@ -38,18 +40,40 @@ namespace WebAPI.Controllers
             _discountService.Delete(value);
             return Ok("İndirim Bilgisi Silindi");
         }
+
         [HttpGet("{id}")]
         public IActionResult GetDiscount(int id)
         {
             var value = _discountService.GetById(id);
             return Ok(_mapper.Map<GetDiscountDto>(value));
         }
+
         [HttpPut]
         public IActionResult UpdateDiscount(UpdateDiscountDto updateDiscountDto)
         {
             var value = _mapper.Map<Discount>(updateDiscountDto);
             _discountService.Update(value);
             return Ok("İndirim Bilgisi Güncellendi");
-        }       
+        }
+
+        [HttpGet("ChangeStatusToFalse/{id}")]
+        public IActionResult ChangeStatusToFalse(int id)
+        {
+             _discountService.ChangeStatusToFalse(id);
+            return Ok("İndirim Durumu Güncellendi");
+        }
+
+        [HttpGet("ChangeStatusToTrue/{id}")]
+        public IActionResult ChangeStatusToTrue(int id)
+        {
+            _discountService.ChangeStatusToTrue(id);
+            return Ok("İndirim Durumu Güncellendi");
+        }
+
+        [HttpGet("GetDiscountByStatusTrue")]
+        public IActionResult GetDiscountByStatusTrue()
+        {
+            return Ok(_discountService.GetListByStatusTrue());
+        }
     }
 }

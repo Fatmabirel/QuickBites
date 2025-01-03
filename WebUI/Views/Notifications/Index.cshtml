@@ -30,8 +30,7 @@
 									<th scope="col">Durum</th>
 									<th scope="col">Sil</th>
 									<th scope="col">Güncelle</th>
-									<th scope="col">Okundu Olarak İşaretle</th>
-									<th scope="col">Okunmadı Olarak İşaretle</th>
+									<th scope="col">İşlem</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -42,11 +41,22 @@
 										<th>@count</th>
 										<td>@item.Description</td>
 										<td>@item.Date</td>
-										<td>@item.Status</td>
+										@if(item.Status == true){
+											<td>Aktif</td>
+										}else{
+											<td>Pasif</td>
+										}										
 										<td><a href="/Notifications/DeleteNotification/@item.Id" class="btn btn-outline-danger">Sil</a></td>
 										<td><a href="/Notifications/UpdateNotification/@item.Id" class="btn btn-outline-success">Güncelle</a></td>
-										<td><a href="/Notifications/NotificationStatusChangeToTrue/@item.Id" class="btn btn-outline-warning">Okundu Olarak İşaretle</a></td>
-										<td><a href="/Notifications/NotificationStatusChangeToFalse/@item.Id" class="btn btn-outline-secondary">Okunmadı Olarak İşaretle</a></td>
+										@if (item.Status == true)
+										{
+											<td><a href="/Notifications/NotificationStatusChangeToFalse/@item.Id" class="btn btn-outline-secondary">Okunmadı Olarak İşaretle</a></td>
+										}
+										else
+										{
+											<td><a href="/Notifications/NotificationStatusChangeToTrue/@item.Id" class="btn btn-outline-warning">Okundu Olarak İşaretle</a></td>
+										}			
+
 									</tr>
 								}
 							</tbody>
