@@ -84,6 +84,27 @@ namespace WebAPI.Hubs
 
             var restaurantTableCount = _restaurantTableService.TotalRestaurantTableCount();
             await Clients.All.SendAsync("ReceiveRestaurantTableCount", restaurantTableCount);
+
+            var averageProductPrice = _productService.AverageProductPrice();
+            await Clients.All.SendAsync("ReceiveAverageProductPrice", averageProductPrice);
+
+            var averageHamburgerPrice = _productService.AveragePriceByHamburger();
+            await Clients.All.SendAsync("ReceiveAveragePriceByHamburger", averageHamburgerPrice);
+
+            var drinkCount = _productService.ProductCountByCategoryNameDrink();
+            await Clients.All.SendAsync("ReceiveProductCountByCategoryNameDrink", drinkCount);
+
+            var totalOrderCount = _orderService.TotalOrderCount();
+            await Clients.All.SendAsync("ReceiveTotalOrderCount", totalOrderCount);
+
+            var productPriceBySteakBurger = _productService.ProductPriceBySteakBurger();
+            await Clients.All.SendAsync("ReceiveProductPriceBySteakBurger", productPriceBySteakBurger);
+
+            var totalPriceByDrinkCategory = _productService.TotalPriceByDrinkCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceByDrinkCategory", totalPriceByDrinkCategory);
+
+            var totalPriceBySaladCategory = _productService.TotalPriceBySaladCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceBySaladCategory", totalPriceBySaladCategory);
         }
         public async Task GetBookingList()
         {

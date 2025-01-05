@@ -41,6 +41,11 @@ namespace BusinessLayer.Concrete
             return _productDal.GetById(id);
         }
 
+        public List<Product> GetLast9Products()
+        {
+            return _productDal.GetLast9Products();
+        }
+
         public List<Product> GetProductsWithCategories()
         {
             return _productDal.GetProductsWithCategories();
@@ -69,6 +74,21 @@ namespace BusinessLayer.Concrete
         public int ProductCountByCategoryNameHamburger()
         {
             return _productDal.ProductCountByCategoryNameHamburger();
+        }
+
+        public decimal ProductPriceBySteakBurger()
+        {
+            return _productDal.ProductPriceBySteakBurger();
+        }
+
+        public decimal TotalPriceByDrinkCategory()
+        {
+            return _productDal.TotalPriceByDrinkCategory();
+        }
+
+        public decimal TotalPriceBySaladCategory()
+        {
+            return _productDal.TotalPriceBySaladCategory();
         }
 
         public void Update(Product entity)
