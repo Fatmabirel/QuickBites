@@ -32,7 +32,7 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var context = new QuickBitesContext())
             {
-                var values = context.Products.OrderByDescending(p => p.Id).Take(9).ToList();
+                var values = context.Products.Take(9).ToList();
                 return values;
             }
         }
