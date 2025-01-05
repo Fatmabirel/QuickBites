@@ -20,7 +20,16 @@ builder.Services.ConfigureApplicationCookie(opts =>
 {
     opts.LoginPath = "/Logins/Index";
 });
+
 var app = builder.Build();
+
+app.UseStatusCodePages(async x =>
+{
+    if (x.HttpContext.Response.StatusCode == 404)
+    {
+        x.HttpContext.Response.Redirect("/Errors/NotFound404Page/"); //redirect to 404 Page
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
