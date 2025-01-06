@@ -2,6 +2,7 @@
 using BusinessLayer.Abstract;
 using DtoLayer.BookingDto;
 using EntityLayer.Entities;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -12,24 +13,35 @@ namespace WebAPI.Controllers
     {
         private readonly IBookingService _bookingService;
         private readonly IMapper _mapper;
-
-        public BookingsController(IBookingService bookingService, IMapper mapper)
+        private readonly IValidator<CreateBookingDto> _validator;
+        public BookingsController(IBookingService bookingService, IMapper mapper, IValidator<CreateBookingDto> validator)
         {
             _bookingService = bookingService;
             _mapper = mapper;
+            _validator = validator;
         }
+
         [HttpGet]
         public IActionResult BookingList()
         {
             var values = _bookingService.GetAll();
             return Ok(_mapper.Map<List<ResultBookingDto>>(values));
         }
+
         [HttpPost]
         public IActionResult CreateBooking(CreateBookingDto createBookingDto)
-        {            
-            var value = _mapper.Map<Booking>(createBookingDto);
-            _bookingService.Add(value);
-            return Ok("Rezervasyon Yapıldı");
+        {
+            var validationResult = _validator.Validate(createBookingDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+            else
+            {
+                var value = _mapper.Map<Booking>(createBookingDto);
+                _bookingService.Add(value);
+                return Ok("Rezervasyon Yapıldı");
+            }
         }
 
         [HttpDelete("{id}")]

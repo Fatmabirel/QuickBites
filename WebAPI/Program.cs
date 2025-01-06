@@ -1,8 +1,12 @@
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules.BookingValidations;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Resources;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using WebAPI.Hubs;
@@ -73,6 +77,13 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidator>();
+
+ValidatorOptions.Global.LanguageManager = new LanguageManager
+{
+    Culture = new System.Globalization.CultureInfo("tr")
+};
 
 builder.Services.AddControllers();
 
