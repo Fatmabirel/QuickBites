@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Dtos\ContactDtos\" />
+    <Folder Include="Views\UILayout\" />
   </ItemGroup>
 
   <ItemGroup>
