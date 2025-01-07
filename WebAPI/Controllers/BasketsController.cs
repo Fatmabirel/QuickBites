@@ -2,11 +2,8 @@
 using BusinessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DtoLayer.BasketDto;
-using DtoLayer.ProductDto;
 using EntityLayer.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
@@ -42,7 +39,7 @@ namespace WebAPI.Controllers
             _basketService.Add(new Basket()
             {
                 ProductId = createBasketDto.ProductId,
-                RestaurantTableId = 3,
+                RestaurantTableId = createBasketDto.RestaurantTableId,
                 Count = 1,
                 Price = context.Products.Where(x => x.Id == createBasketDto.ProductId).Select(y => y.Price).FirstOrDefault(),
                 TotalPrice = createBasketDto.TotalPrice,
